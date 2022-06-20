@@ -1,9 +1,4 @@
-exports.getDecimalPlaces = getDecimalPlaces;
-exports.addDecimalPlacesToString = addDecimalPlacesToString;
-exports.convertToBigInt = convertToBigInt;
-exports.simpleToFixed = simpleToFixed;
-
-function getDecimalPlaces(nums) {
+export function getDecimalPlaces(nums) {
   let s = new String(nums);
   if (!s.includes(".")) {
     return 0;
@@ -12,7 +7,7 @@ function getDecimalPlaces(nums) {
   }
 }
 //小数点位置挪动
-function addDecimalPlacesToString(str, len = 2) {
+export function addDecimalPlacesToString(str, len = 2) {
   // len 正数右挪，负数左挪
   if (!Number.isInteger(len)) {
     return new Error("len argument must be interger");
@@ -63,7 +58,7 @@ function addDecimalPlacesToString(str, len = 2) {
   return result;
 }
 
-function convertToBigInt(nums) {
+export function convertToBigInt(nums) {
   let str = new String(nums);
   //TODO 缺少校验步骤
   str = str.replace(/\./g, "");
@@ -75,7 +70,7 @@ function convertToBigInt(nums) {
 }
 
 //重构toFixed
-function simpleToFixed(num, len = 2) {
+export function simpleToFixed(num, len = 2) {
   if (!Number.isInteger(len)) {
     return new Error("len argument must be interger");
   }

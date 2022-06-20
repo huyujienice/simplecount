@@ -1,16 +1,12 @@
-const {
+import {
   getDecimalPlaces,
   addDecimalPlacesToString,
   convertToBigInt,
   simpleToFixed,
-} = require("./utils/index");
-exports.add = add;
-exports.sub = sub;
-exports.mul = mul;
-exports.mul = mul;
+} from "../utils/index";
 
 //加法
-function add(one, two) {
+export function add(one, two) {
   let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
@@ -19,7 +15,7 @@ function add(one, two) {
   return result;
 }
 //减法
-function sub(one, two) {
+export function sub(one, two) {
   let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
@@ -28,7 +24,7 @@ function sub(one, two) {
   return result;
 }
 //乘法
-function mul(one, two) {
+export function mul(one, two) {
   let oneL = getDecimalPlaces(one);
   let twoL = getDecimalPlaces(two);
   const oneBig = convertToBigInt(one);
@@ -38,7 +34,7 @@ function mul(one, two) {
   return result;
 }
 //除法
-function mul(one, two, holdNums = 2) {
+export function divi(one, two, holdNums = 2) {
   //TODO
   if (holdNums < 0) {
     return new Error("can not keep negative decimal point");

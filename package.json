@@ -2,8 +2,9 @@
   "name": "simplecount",
   "version": "1.0.0",
   "description": "a small tool for js count",
-  "main": "index.js",
+  "main": "src/core/index.js",
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,7 +17,9 @@
     "url": "https://github.com/huyujienice/simpleCount/issues"
   },
   "homepage": "https://github.com/huyujienice/simpleCount#readme",
-  "dependencies": {
-    "webpack": "^5.73.0"
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
   }
 }
