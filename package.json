@@ -2,8 +2,9 @@
   "name": "simplecount",
   "version": "1.0.0",
   "description": "a small tool for js count",
-  "main": "src/core/index.js",
+  "main": "src/index.js",
   "scripts": {
+    "serve": "node ./src/index.js",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

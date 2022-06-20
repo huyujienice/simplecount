@@ -1,12 +1,11 @@
-import {
+const {
   getDecimalPlaces,
   addDecimalPlacesToString,
   convertToBigInt,
-  simpleToFixed,
-} from "../utils/index";
+} = require("../utils/index");
 
 //加法
-export function add(one, two) {
+function add(one, two) {
   let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
@@ -15,7 +14,7 @@ export function add(one, two) {
   return result;
 }
 //减法
-export function sub(one, two) {
+function sub(one, two) {
   let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
@@ -24,7 +23,7 @@ export function sub(one, two) {
   return result;
 }
 //乘法
-export function mul(one, two) {
+function mul(one, two) {
   let oneL = getDecimalPlaces(one);
   let twoL = getDecimalPlaces(two);
   const oneBig = convertToBigInt(one);
@@ -34,7 +33,7 @@ export function mul(one, two) {
   return result;
 }
 //除法
-export function divi(one, two, holdNums = 2) {
+function divi(one, two, holdNums = 2) {
   //TODO
   if (holdNums < 0) {
     return new Error("can not keep negative decimal point");
@@ -82,24 +81,94 @@ export function divi(one, two, holdNums = 2) {
   const result = addDecimalPlacesToString(bigValue, -move);
   const finalResult = simpleToFixed(result, holdNums);
 
-  console.log(`d1=${d1}`);
-  console.log(`d2=${d2}`);
-  console.log(`l1=${l1}`);
-  console.log(`l2=${l2}`);
-  console.log(`overload=${overload}`);
+  // console.log(`d1=${d1}`);
+  // console.log(`d2=${d2}`);
+  // console.log(`l1=${l1}`);
+  // console.log(`l2=${l2}`);
+  // console.log(`overload=${overload}`);
 
-  console.log(`oneStep=${oneStep}`);
-  console.log(`twoStep=${twoStep}`);
-  console.log(`threeStep=${threeStep}`);
-  console.log(`fourStep=${fourStep}`);
+  // console.log(`oneStep=${oneStep}`);
+  // console.log(`twoStep=${twoStep}`);
+  // console.log(`threeStep=${threeStep}`);
+  // console.log(`fourStep=${fourStep}`);
 
-  console.log(`move=${move}`);
+  // console.log(`move=${move}`);
 
-  console.log(`oneBig=${oneBig}`);
-  console.log(`twoBig=${twoBig}`);
-  console.log(`bigValue=${bigValue}`);
-  console.log(`result=${result}`);
-  console.log(`finalResult=${finalResult}`);
+  // console.log(`oneBig=${oneBig}`);
+  // console.log(`twoBig=${twoBig}`);
+  // console.log(`bigValue=${bigValue}`);
+  // console.log(`result=${result}`);
+  // console.log(`finalResult=${finalResult}`);
 
   return finalResult;
 }
+
+/**
+ * 四舍五入重构toFixed
+ * 不支持科学计数法,e写法
+ * @param {String|Number} num
+ * @param {Number} len
+ * @return {String} str
+ */
+function simpleToFixed(num, len) {
+  if (len === null || len === undefined) {
+    len = 2;
+  }
+  if (!Number.isInteger(len)) {
+    return new Error("len argument must be interger");
+  }
+  if (len < 0) {
+    return new Error("len argument must larger than zero");
+  }
+  let str = String(num);
+  //数据源小数位数
+  let rightL = getDecimalPlaces(str);
+  //需要挪动的小数位数
+  let l = len - rightL;
+  let positive = 0;
+  if (str[0] === "-") {
+    //负数
+    positive = 1;
+    str = str.slice(1);
+  }
+  if (l >= 0) {
+    //需0补位
+    let z = ``;
+    while (l > 0) {
+      z = `0${z}`;
+      l--;
+    }
+    if (str.includes(".")) {
+      str = `${str}${z}`;
+    } else {
+      str = `${str}.${z}`;
+    }
+  } else {
+    //需取小数
+    const decimal = str.split(".")[1];
+    const integer = str.split(".")[0];
+    let judge = 0;
+    let decimalValue = decimal;
+    if (decimal[len] !== undefined) {
+      judge = Number(decimal[len]);
+      decimalValue = decimal.slice(0, len);
+    }
+    const originValue = `${integer}.${decimalValue}`;
+    if (judge > 4) {
+      const one = addDecimalPlacesToString(1, -len);
+      str = add(originValue, one);
+    } else {
+      str = originValue;
+    }
+  }
+  if (positive === 1) {
+    str = `-${str}`;
+  }
+  return str;
+}
+
+exports.add = add;
+exports.sub = sub;
+exports.mul = mul;
+exports.divi = divi;
+exports.simpleToFixed = simpleToFixed;

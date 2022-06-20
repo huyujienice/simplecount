@@ -1,4 +1,31 @@
-export function getDecimalPlaces(nums) {
+/**
+ * 将输入转换为BigInt
+ *
+ * @param {BigInt|String|Number} nums
+ * @return {BigInt} result 
+ */
+function convertToBigInt(nums) {
+  if (typeof nums === "bigint") {
+    return nums;
+  }
+  let str = new String(nums);
+  //TODO 缺少校验步骤
+  str = str.replace(/\./g, "");
+  while (str.charAt[0] == 0) {
+    str = str.slice(1);
+  }
+  let result = BigInt(str);
+  return result;
+}
+
+
+/**
+ *
+ *
+ * @param {*} nums
+ * @return {*} 
+ */
+function getDecimalPlaces(nums) {
   let s = new String(nums);
   if (!s.includes(".")) {
     return 0;
@@ -7,7 +34,17 @@ export function getDecimalPlaces(nums) {
   }
 }
 //小数点位置挪动
-export function addDecimalPlacesToString(str, len = 2) {
+/**
+ *
+ *
+ * @param {*} str
+ * @param {*} len
+ * @return {*} 
+ */
+function addDecimalPlacesToString(str, len) {
+  if (len === null || len === undefined) {
+    len = 2;
+  }
   // len 正数右挪，负数左挪
   if (!Number.isInteger(len)) {
     return new Error("len argument must be interger");
@@ -58,64 +95,6 @@ export function addDecimalPlacesToString(str, len = 2) {
   return result;
 }
 
-export function convertToBigInt(nums) {
-  let str = new String(nums);
-  //TODO 缺少校验步骤
-  str = str.replace(/\./g, "");
-  while (str.charAt[0] == 0) {
-    str = str.slice(1);
-  }
-  let result = BigInt(str);
-  return result;
-}
-
-//重构toFixed
-export function simpleToFixed(num, len = 2) {
-  if (!Number.isInteger(len)) {
-    return new Error("len argument must be interger");
-  }
-  if (len < 0) {
-    return new Error("len argument must larger than zero");
-  }
-  let result = String(num);
-  //数据源小数位数
-  let rightL = getDecimalPlaces(num);
-  let positive = 0;
-  if (result[0] === "-") {
-    //负数
-    positive = 1;
-    result = result.slice(1);
-  }
-  if (rightL > len) {
-    const r1 = result.split(".")[0];
-    const r2 = result.split(".")[1].slice(0, len);
-    const judge = Number(result.split(".")[1].slice(len)[0]);
-    if (r2) {
-      result = `${r1}.${r2}`;
-    } else {
-      result = `${r1}`;
-    }
-    if (judge > 4) {
-      const addNum = addDecimalPlacesToString(1, -len);
-      result = String(add(result, addNum));
-    }
-  }
-  //填补位
-  let w = getDecimalPlaces(result);
-  if (w < len) {
-    let c = len - w;
-    while (c > 0) {
-      if (result.includes(".")) {
-        result = `${result}0`;
-      } else {
-        result = `${result}.0`;
-      }
-      c--;
-    }
-  }
-
-  if (positive === 1) {
-    result = `-${result}`;
-  }
-  return result;
-}
+exports.getDecimalPlaces = getDecimalPlaces;
+exports.addDecimalPlacesToString = addDecimalPlacesToString;
+exports.convertToBigInt = convertToBigInt;
