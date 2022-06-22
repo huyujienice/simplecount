@@ -5,26 +5,26 @@ function pagelog(msg) {
   div.innerHTML = `${msg}`;
   document.body.appendChild(div);
 }
-const value3 = `1.95`;
-const result3 = `simpleToFixed(${value3},1)=${simpleToFixed(value3, 1)}`;
+const value3 = `9.988`;
+const result3 = `simpleToFixed(${value3},3)=${simpleToFixed(value3, 3)}`;
 
 pagelog(`value3=${value3}`);
 pagelog(result3);
 
-// const value1 = `1.22`;
-// const value2 = `0.123`;
+const value1 = -22;
+const value2 = 0.111123;
 
-// console.log(`value1=${value1}`);
-// console.log(`value2=${value2}`);
+pagelog(`value1=${value1}`);
+pagelog(`value2=${value2}`);
 
-// console.log(`value1+value2=${value1 + value2}`);
-// console.log(`add=${add(value1, value2)}`);
+pagelog(`value1+value2=${value1 + value2}`);
+pagelog(`add=${add(value1, value2)}`); 
 
-// console.log(`value1-value2=${value1 - value2}`);
-// console.log(`sub=${sub(value1, value2)}`);
+pagelog(`value1-value2=${value1 - value2}`);
+pagelog(`sub=${sub(value1, value2)}`);
 
-// console.log(`value1*value2=${value1 * value2}`);
-// console.log(`mul=${mul(value1, value2)}`);
+pagelog(`value1*value2=${value1 * value2}`);
+pagelog(`mul=${mul(value1, value2)}`);
 
-// console.log(`value1/value2=${value1 / value2}`);
-// console.log(`divi=${divi(value1, value2)}`);
+pagelog(`value1/value2=${value1 / value2}`);
+pagelog(`divi=${divi(value1, value2)}`);
