@@ -8,10 +8,14 @@ function fomateToNormal(str) {
   if (typeof nums === "bigint") {
     s = s.toString();
   }
-  let s = new String(str);
+  let s = String(str);
   if (s.includes(".")) {
     let len = s.length - 1;
-    while (s[len] === "0" || s[len] === ".") {
+    while (s[len] === "0") {
+      s = s.slice(0, len);
+      len = s.length - 1;
+    }
+    if (s[len] === ".") {
       s = s.slice(0, len);
       len = s.length - 1;
     }
@@ -29,7 +33,7 @@ function convertToBigInt(nums) {
   if (typeof nums === "bigint") {
     return nums;
   }
-  let str = new String(nums);
+  let str = String(nums);
   //TODO 缺少校验步骤
   str = str.replace(/\./g, "");
   while (str.charAt[0] == 0) {
@@ -46,7 +50,7 @@ function convertToBigInt(nums) {
  * @return {*}
  */
 function getDecimalPlaces(nums) {
-  let s = new String(nums);
+  let s = String(nums);
   if (!s.includes(".")) {
     return 0;
   } else {

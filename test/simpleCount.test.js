@@ -4,12 +4,12 @@ const BigNumber = require("bignumber.js");
 
 let oneValue = `0.1`;
 let twoValue = `0.1`;
-let step = `0.1`;
+let step = `1`;
 let continueTest = true;
 
 async function goontest() {
   if (!continueTest) return;
-  let result = String(BigNumber(oneValue).plus(twoValue));
+  let result = BigNumber(oneValue).plus(twoValue);
   let countreulst = add(oneValue, twoValue);
   let str = `bignumberjs:adds ${oneValue} + ${twoValue} to equal ${result}`;
   let nowstr = `simplecountjs:adds ${oneValue} + ${twoValue} to equal ${countreulst}`;
@@ -19,6 +19,9 @@ async function goontest() {
     continueTest = true;
   } else {
     // throw new Error(nowstr);
+    console.error(Object.prototype.toString.call(str));
+    console.error(Object.prototype.toString.call(nowstr));
+    console.error(`count error :${str}`);
     console.error(`count error :${nowstr}`);
   }
   twoValue = String(BigNumber(twoValue).plus(step));
