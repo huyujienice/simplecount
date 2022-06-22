@@ -1,8 +1,29 @@
 /**
+ * 将输入转换为正常书写样式
+ * 0.10 -> 0.1  5.00 -> 5
+ * @param {BigInt|String|number} str
+ * @return {String} s
+ */
+function fomateToNormal(str) {
+  if (typeof nums === "bigint") {
+    s = s.toString();
+  }
+  let s = new String(str);
+  if (s.includes(".")) {
+    let len = s.length - 1;
+    while (s[len] === "0" || s[len] === ".") {
+      s = s.slice(0, len);
+      len = s.length - 1;
+    }
+  }
+  return s;
+}
+
+/**
  * 将输入转换为BigInt
  *
  * @param {BigInt|String|Number} nums
- * @return {BigInt} result 
+ * @return {BigInt} result
  */
 function convertToBigInt(nums) {
   if (typeof nums === "bigint") {
@@ -18,12 +39,11 @@ function convertToBigInt(nums) {
   return result;
 }
 
-
 /**
  *
  *
  * @param {*} nums
- * @return {*} 
+ * @return {*}
  */
 function getDecimalPlaces(nums) {
   let s = new String(nums);
@@ -39,7 +59,7 @@ function getDecimalPlaces(nums) {
  *
  * @param {*} str
  * @param {*} len
- * @return {*} 
+ * @return {*}
  */
 function addDecimalPlacesToString(str, len) {
   if (len === null || len === undefined) {
@@ -98,3 +118,4 @@ function addDecimalPlacesToString(str, len) {
 exports.getDecimalPlaces = getDecimalPlaces;
 exports.addDecimalPlacesToString = addDecimalPlacesToString;
 exports.convertToBigInt = convertToBigInt;
+exports.fomateToNormal = fomateToNormal;

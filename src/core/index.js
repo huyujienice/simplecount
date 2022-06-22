@@ -2,34 +2,40 @@ const {
   getDecimalPlaces,
   addDecimalPlacesToString,
   convertToBigInt,
+  fomateToNormal,
 } = require("../utils/index");
 
 //加法
 function add(one, two) {
-  let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
+  const len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
   const bigValue = convertToBigInt(oneBig) + convertToBigInt(twoBig);
-  const result = addDecimalPlacesToString(bigValue, -len);
+  let result = addDecimalPlacesToString(bigValue, -len);
+  result = fomateToNormal(result);
   return result;
 }
 //减法
 function sub(one, two) {
-  let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
+  const len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
   const bigValue = convertToBigInt(oneBig) - convertToBigInt(twoBig);
-  const result = addDecimalPlacesToString(bigValue, -len);
+  let result = addDecimalPlacesToString(bigValue, -len);
+  result = fomateToNormal(result);
+
   return result;
 }
 //乘法
 function mul(one, two) {
-  let oneL = getDecimalPlaces(one);
-  let twoL = getDecimalPlaces(two);
+  const oneL = getDecimalPlaces(one);
+  const twoL = getDecimalPlaces(two);
   const oneBig = convertToBigInt(one);
   const twoBig = convertToBigInt(two);
   const bigValue = convertToBigInt(oneBig) * convertToBigInt(twoBig);
-  const result = addDecimalPlacesToString(bigValue, -(oneL + twoL));
+  let result = addDecimalPlacesToString(bigValue, -(oneL + twoL));
+  result = fomateToNormal(result);
+
   return result;
 }
 //除法
@@ -79,7 +85,10 @@ function divi(one, two, holdNums = 2) {
 
   const bigValue = convertToBigInt(oneBig) / convertToBigInt(twoBig);
   const result = addDecimalPlacesToString(bigValue, -move);
-  const finalResult = simpleToFixed(result, holdNums);
+  let finalResult = simpleToFixed(result, holdNums);
+
+  finalResult = fomateToNormal(finalResult);
+
 
   // console.log(`d1=${d1}`);
   // console.log(`d2=${d2}`);
@@ -99,6 +108,7 @@ function divi(one, two, holdNums = 2) {
   // console.log(`bigValue=${bigValue}`);
   // console.log(`result=${result}`);
   // console.log(`finalResult=${finalResult}`);
+
 
   return finalResult;
 }
