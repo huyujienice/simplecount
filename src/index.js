@@ -5,14 +5,14 @@ function pagelog(msg) {
   div.innerHTML = `${msg}`;
   document.body.appendChild(div);
 }
-const value3 = `9.988`;
-const result3 = `simpleToFixed(${value3},3)=${simpleToFixed(value3, 3)}`;
+const value3 = `0.1990000`;
+const result3 = `simpleToFixed(${value3},2)=${simpleToFixed(value3, 2)}`;
 
 pagelog(`value3=${value3}`);
 pagelog(result3);
 
-const value1 = -22;
-const value2 = 0.111123;
+const value1 = 19.9;
+const value2 = 100;
 
 pagelog(`value1=${value1}`);
 pagelog(`value2=${value2}`);

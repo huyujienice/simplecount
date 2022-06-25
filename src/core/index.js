@@ -2,45 +2,88 @@ const {
   getDecimalPlaces,
   addDecimalPlacesToString,
   convertToBigInt,
-  fomateToNormal,
+  fomateToString,
 } = require("../utils/index");
+//非大数加法
+function normaladd(one, two) {
+  let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
+  let result =
+    addDecimalPlacesToString(one, len) + addDecimalPlacesToString(two, len);
+  result = addDecimalPlacesToString(result, -len);
+  result = fomateToString(result);
 
+  return result;
+}
+//非大数减法
+function normalsub(one, two) {
+  let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
+  let result =
+    addDecimalPlacesToString(one, len) - addDecimalPlacesToString(two, len);
+  result = addDecimalPlacesToString(result, -len);
+  result = fomateToString(result);
+
+  return result;
+}
+//非大数乘法
+function normalmul(one, two) {
+  let oneL = getDecimalPlaces(one);
+  let twoL = getDecimalPlaces(two);
+  let result =
+    addDecimalPlacesToString(one, oneL) * addDecimalPlacesToString(two, twoL);
+  result = addDecimalPlacesToString(result, -(oneL + twoL));
+  result = fomateToString(result);
+
+  return result;
+}
+//非大数除法
+function normaldivi(one, two) {
+  let oneL = getDecimalPlaces(one);
+  let twoL = getDecimalPlaces(two);
+  let result =
+    addDecimalPlacesToString(one, oneL) / addDecimalPlacesToString(two, twoL);
+  result = addDecimalPlacesToString(result, -(oneL - twoL));
+
+  return result;
+}
 //加法
-function add(one, two) {
+function bigintadd(one, two) {
   const len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
   const bigValue = convertToBigInt(oneBig) + convertToBigInt(twoBig);
   let result = addDecimalPlacesToString(bigValue, -len);
-  result = fomateToNormal(result);
+  result = fomateToString(result);
   return result;
 }
 //减法
-function sub(one, two) {
+function bigintsub(one, two) {
   const len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
   const bigValue = convertToBigInt(oneBig) - convertToBigInt(twoBig);
   let result = addDecimalPlacesToString(bigValue, -len);
-  result = fomateToNormal(result);
+  result = fomateToString(result);
 
   return result;
 }
 //乘法
-function mul(one, two) {
+function bigintmul(one, two) {
   const oneL = getDecimalPlaces(one);
   const twoL = getDecimalPlaces(two);
   const oneBig = convertToBigInt(one);
   const twoBig = convertToBigInt(two);
   const bigValue = convertToBigInt(oneBig) * convertToBigInt(twoBig);
   let result = addDecimalPlacesToString(bigValue, -(oneL + twoL));
-  result = fomateToNormal(result);
+  result = fomateToString(result);
 
   return result;
 }
 //除法
-function divi(one, two, holdNums = 2) {
+function bigintdivi(one, two, holdNums) {
   //TODO
+  if (holdNums === undefined) {
+    holdNums = 2;
+  }
   if (holdNums < 0) {
     return new Error("can not keep negative decimal point");
   }
@@ -56,14 +99,12 @@ function divi(one, two, holdNums = 2) {
 
   let oneStep = d2 - d1;
   originalOneBig = addDecimalPlacesToString(originalOneBig, oneStep);
-  console.log(`originalOneBig=${originalOneBig}`);
 
   let twoStep = getDecimalPlaces(originalOneBig);
   if (twoStep > 0) {
     move = move + twoStep;
     originalOneBig = addDecimalPlacesToString(originalOneBig, twoStep);
   }
-  console.log(`originalOneBig=${originalOneBig}`);
 
   l1 = originalOneBig.length;
   //保证l1比l2大1位，才有整数留存
@@ -78,7 +119,6 @@ function divi(one, two, holdNums = 2) {
   move = move + fourStep;
   originalOneBig = addDecimalPlacesToString(originalOneBig, fourStep);
 
-  console.log(`originalOneBig=${originalOneBig}`);
 
   const oneBig = originalOneBig;
   const twoBig = convertToBigInt(two);
@@ -86,29 +126,6 @@ function divi(one, two, holdNums = 2) {
   const bigValue = convertToBigInt(oneBig) / convertToBigInt(twoBig);
   const result = addDecimalPlacesToString(bigValue, -move);
   let finalResult = simpleToFixed(result, holdNums);
-
-  finalResult = fomateToNormal(finalResult);
-
-
-  // console.log(`d1=${d1}`);
-  // console.log(`d2=${d2}`);
-  // console.log(`l1=${l1}`);
-  // console.log(`l2=${l2}`);
-  // console.log(`overload=${overload}`);
-
-  // console.log(`oneStep=${oneStep}`);
-  // console.log(`twoStep=${twoStep}`);
-  // console.log(`threeStep=${threeStep}`);
-  // console.log(`fourStep=${fourStep}`);
-
-  // console.log(`move=${move}`);
-
-  // console.log(`oneBig=${oneBig}`);
-  // console.log(`twoBig=${twoBig}`);
-  // console.log(`bigValue=${bigValue}`);
-  // console.log(`result=${result}`);
-  // console.log(`finalResult=${finalResult}`);
-
 
   return finalResult;
 }
@@ -130,7 +147,7 @@ function simpleToFixed(num, len) {
   if (len < 0) {
     return new Error("len argument must larger than zero");
   }
-  let str = String(num);
+  let str = fomateToString(num);
   //数据源小数位数
   let rightL = getDecimalPlaces(str);
   //需要挪动的小数位数
@@ -167,6 +184,12 @@ function simpleToFixed(num, len) {
     if (judge > 4) {
       const one = addDecimalPlacesToString(1, -len);
       str = add(originValue, one);
+      //add 会自动省略后置0，可能需补位
+      let now = getDecimalPlaces(str) - len;
+      while (now < 0) {
+        str = `${str}0`;
+        ++now;
+      }
     } else {
       str = originValue;
     }
@@ -176,7 +199,34 @@ function simpleToFixed(num, len) {
   }
   return str;
 }
-
+function add(one, two) {
+  if (typeof BigInt === "function") {
+    return bigintadd(one, two);
+  } else {
+    return normaladd(one, two);
+  }
+}
+function sub(one, two) {
+  if (typeof BigInt === "function") {
+    return bigintsub(one, two);
+  } else {
+    return normalsub(one, two);
+  }
+}
+function mul(one, two) {
+  if (typeof BigInt === "function") {
+    return bigintmul(one, two);
+  } else {
+    return normalmul(one, two);
+  }
+}
+function divi(one, two, holdNums) {
+  if (typeof BigInt === "function") {
+    return bigintdivi(one, two, holdNums);
+  } else {
+    return normaldivi(one, two, holdNums);
+  }
+}
 exports.add = add;
 exports.sub = sub;
 exports.mul = mul;

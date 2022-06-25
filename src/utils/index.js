@@ -1,15 +1,19 @@
 /**
- * 将输入转换为正常书写样式
- * 0.10 -> 0.1  5.00 -> 5
+ * 将输入转换为正常书写样式字符串
+ * .2 -> 0.2  0.10 -> 0.1  5.00 -> 5
  * @param {BigInt|String|number} str
  * @return {String} s
  */
-function fomateToNormal(str) {
+function fomateToString(str) {
+  let s;
   if (typeof nums === "bigint") {
     s = s.toString();
   }
-  let s = String(str);
+  s = String(str);
   if (s.includes(".")) {
+    if (s[0] == ".") {
+      s = `0${s}`;
+    }
     let len = s.length - 1;
     while (s[len] === "0") {
       s = s.slice(0, len);
@@ -33,7 +37,7 @@ function convertToBigInt(nums) {
   if (typeof nums === "bigint") {
     return nums;
   }
-  let str = String(nums);
+  let str = fomateToString(nums);
   //TODO 缺少校验步骤
   str = str.replace(/\./g, "");
   while (str.charAt[0] == 0) {
@@ -50,7 +54,7 @@ function convertToBigInt(nums) {
  * @return {*}
  */
 function getDecimalPlaces(nums) {
-  let s = String(nums);
+  let s = fomateToString(nums);
   if (!s.includes(".")) {
     return 0;
   } else {
@@ -73,7 +77,7 @@ function addDecimalPlacesToString(str, len) {
   if (!Number.isInteger(len)) {
     return new Error("len argument must be interger");
   }
-  let s = String(str);
+  let s = fomateToString(str);
   //数据源小数位数
   let rightL = getDecimalPlaces(str);
   //需要挪动的小数位数
@@ -122,4 +126,4 @@ function addDecimalPlacesToString(str, len) {
 exports.getDecimalPlaces = getDecimalPlaces;
 exports.addDecimalPlacesToString = addDecimalPlacesToString;
 exports.convertToBigInt = convertToBigInt;
-exports.fomateToNormal = fomateToNormal;
+exports.fomateToString = fomateToString;
