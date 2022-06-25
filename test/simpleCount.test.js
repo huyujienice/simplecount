@@ -1,11 +1,29 @@
+const path = require("path");
 const { add, sub, mul, divi, simpleToFixed } = require("../src/core/index");
-const { appendDistFile, findFile } = require("../src/utils/file");
+const { appendDistFile } = require("../src/utils/file");
 const BigNumber = require("bignumber.js");
 
-let oneValue = `0.00001`;
+//正常来说项目根目录即进程运行的目录
+const projectRootPath = process.cwd();
+//需要输出的文件目录，从项目根目录开始
+const outputFilePath = `./dist/unittest/simpleToFixed.txt`;
+//输出目录
+const distOutputFilePath = path.join(projectRootPath, outputFilePath);
+//输出目录对象
+const outputObj = path.parse(distOutputFilePath);
+
+// console.log(outputObj);
+
+function writeMsg(msg) {
+  appendDistFile(outputObj.dir, distOutputFilePath, msg);
+}
+
+let oneValue = `0.0001`;
 let twoValue = `0.1`;
-let step = `0.00001`;
+let step = `0.0001`;
 let continueTest = true;
+let msg = "";
+let msgCount = 0;
 
 async function testsimpletofixed() {
   if (!continueTest) return;
@@ -14,15 +32,25 @@ async function testsimpletofixed() {
   let str = `bignumberjs:${oneValue}.toFormat(3)=${result}`;
   let nowstr = `simplecount:${oneValue}.simpleToFixed(${oneValue},3)=${countreulst}`;
   if (result === countreulst) {
-    console.log("\x1B[36m%s\x1B[0m", `right :${nowstr}`);
+    msg = `${msg}\r\n${str}\r\n${nowstr}`;
+    ++msgCount;
+    if (msgCount > 1000) {
+      writeMsg(msg);
+      msg = "";
+      msgCount = 0;
+    }
+    console.log("\x1B[36m%s\x1B[0m", `${oneValue}`);
     continueTest = true;
   } else {
     console.log("\x1B[31m%s\x1B[0m", `error :${nowstr}`);
-    throw new Error("test error");
+    process.exit();
   }
   oneValue = String(BigNumber(oneValue).plus(step));
   if (oneValue > 100) {
     continueTest = false;
+    writeMsg(msg);
+    msg = "";
+    msgCount = 0;
   }
 }
 

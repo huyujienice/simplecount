@@ -38,20 +38,16 @@ async function openNewFilePath(path) {
 }
 
 //追加内容至文件夹
-async function appendDistFile(msg) {
+async function appendDistFile(dir, file, msg) {
   if (!msg.includes("\r\n")) {
     msg = `${msg}\r\n`;
   }
   try {
-    await appendFile(distOutputFilePath, msg);
+    await mkdir(dir, { recursive: true });
+    await appendFile(file, msg);
   } catch (error) {
     console.log(error);
   }
-}
-
-async function findFile() {
-  await openNewFilePath(outputObj.dir);
-  await appendDistFile(distOutputFilePath);
 }
 
 async function textFuc() {
@@ -60,5 +56,5 @@ async function textFuc() {
 }
 
 exports.appendDistFile = appendDistFile;
-exports.findFile = findFile;
 exports.textFuc = textFuc;
+exports.openNewFilePath = openNewFilePath;
