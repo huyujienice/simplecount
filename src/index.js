@@ -5,8 +5,8 @@ function pagelog(msg) {
   div.innerHTML = `${msg}`;
   document.body.appendChild(div);
 }
-const value3 = `0.1990000`;
-const result3 = `simpleToFixed(${value3},2)=${simpleToFixed(value3, 2)}`;
+const value3 = `99.995`;
+const result3 = `simpleToFixed(${value3},3)=${simpleToFixed(value3, 2)}`;
 
 pagelog(`value3=${value3}`);
 pagelog(result3);

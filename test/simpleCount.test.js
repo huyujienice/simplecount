@@ -2,9 +2,9 @@ const { add, sub, mul, divi, simpleToFixed } = require("../src/core/index");
 const { appendDistFile, findFile } = require("../src/utils/file");
 const BigNumber = require("bignumber.js");
 
-let oneValue = `0.1`;
+let oneValue = `0.00001`;
 let twoValue = `0.1`;
-let step = `1`;
+let step = `0.00001`;
 let continueTest = true;
 
 async function testsimpletofixed() {
@@ -14,26 +14,21 @@ async function testsimpletofixed() {
   let str = `bignumberjs:${oneValue}.toFormat(3)=${result}`;
   let nowstr = `simplecount:${oneValue}.simpleToFixed(${oneValue},3)=${countreulst}`;
   if (result === countreulst) {
-    console.log(str);
-    console.log(nowstr);
+    console.log("\x1B[36m%s\x1B[0m", `right :${nowstr}`);
     continueTest = true;
   } else {
-    // throw new Error(nowstr);
-    console.error(Object.prototype.toString.call(str));
-    console.error(Object.prototype.toString.call(nowstr));
-    console.error(`count error :${str}`);
-    console.error(`count error :${nowstr}`);
+    console.log("\x1B[31m%s\x1B[0m", `error :${nowstr}`);
+    throw new Error("test error");
   }
   oneValue = String(BigNumber(oneValue).plus(step));
   if (oneValue > 100) {
     continueTest = false;
   }
-  if (continueTest) {
-    testsimpletofixed();
-  }
 }
 
-testsimpletofixed();
+while (continueTest) {
+  testsimpletofixed();
+}
 
 // async function goontestadd() {
 //   if (!continueTest) return;

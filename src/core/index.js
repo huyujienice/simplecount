@@ -51,6 +51,7 @@ function bigintadd(one, two) {
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
   const bigValue = convertToBigInt(oneBig) + convertToBigInt(twoBig);
+
   let result = addDecimalPlacesToString(bigValue, -len);
   result = fomateToString(result);
   return result;
@@ -119,7 +120,6 @@ function bigintdivi(one, two, holdNums) {
   move = move + fourStep;
   originalOneBig = addDecimalPlacesToString(originalOneBig, fourStep);
 
-
   const oneBig = originalOneBig;
   const twoBig = convertToBigInt(two);
 
@@ -183,9 +183,13 @@ function simpleToFixed(num, len) {
     const originValue = `${integer}.${decimalValue}`;
     if (judge > 4) {
       const one = addDecimalPlacesToString(1, -len);
+
       str = add(originValue, one);
       //add 会自动省略后置0，可能需补位
       let now = getDecimalPlaces(str) - len;
+      if (!str.includes(".")) {
+        str = `${str}.`;
+      }
       while (now < 0) {
         str = `${str}0`;
         ++now;
