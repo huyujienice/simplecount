@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "webpack-dev-server",
     "build": "webpack",
-    "test": "node ./test/simpleCount.test.js"
+    "test": "node ./test/simpleCount.test.js",
+    "test:add": "node ./test/add.test.js"
   },
   "repository": {
     "type": "git",

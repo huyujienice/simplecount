@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("node:fs");
 const { add, sub, mul, divi, simpleToFixed } = require("../src/core/index");
 const { appendDistFile } = require("../src/utils/file");
 const BigNumber = require("bignumber.js");
@@ -14,12 +15,16 @@ const outputObj = path.parse(distOutputFilePath);
 
 // console.log(outputObj);
 
+const ws = fs.createWriteStream(distOutputFilePath, {
+  highWaterMark: 32 * 1024,
+});
+
 function writeMsg(msg) {
-  appendDistFile(outputObj.dir, distOutputFilePath, msg);
+  ws.write(msg);
 }
 
-let oneValue = `0.0001`;
-let twoValue = `0.1`;
+let oneValue = -1100;
+let endValue = 1100;
 let step = `0.0001`;
 let continueTest = true;
 let msg = "";
@@ -29,26 +34,31 @@ async function testsimpletofixed() {
   if (!continueTest) return;
   let result = BigNumber(oneValue).toFormat(3);
   let countreulst = simpleToFixed(oneValue, 3);
-  let str = `bignumberjs:${oneValue}.toFormat(3)=${result}`;
   let nowstr = `simplecount:${oneValue}.simpleToFixed(${oneValue},3)=${countreulst}`;
-  if (result === countreulst) {
-    msg = `${msg}\r\n${str}\r\n${nowstr}`;
+  // 1,100 -> 1100
+  result = result.replace(/,/g, "");
+  // 不能用 === ,  因为bignumber有时返回的是对象，而simplecount永远返回字符串
+  if (result == countreulst) {
+    msg = `${msg}\r\n${oneValue}\r\n${nowstr}`;
     ++msgCount;
     if (msgCount > 1000) {
       writeMsg(msg);
       msg = "";
       msgCount = 0;
     }
-    console.log("\x1B[36m%s\x1B[0m", `${oneValue}`);
+    console.log(`${oneValue}`);
     continueTest = true;
   } else {
     console.log("\x1B[31m%s\x1B[0m", `error :${nowstr}`);
-    process.exit();
+    process.exit(-1);
   }
   oneValue = String(BigNumber(oneValue).plus(step));
-  if (oneValue > 100) {
+  // 若大于2侧都是字符串，那么以字符串的形式比较大小，不是以正常的数据形式
+  // If both values are strings, they are compared as strings, 
+  // based on the values of the Unicode code points they contain.
+  if (oneValue > endValue) {
     continueTest = false;
-    writeMsg(msg);
+    ws.end(msg);
     msg = "";
     msgCount = 0;
   }
