@@ -7,7 +7,8 @@
     "serve": "webpack-dev-server",
     "build": "webpack",
     "test": "node ./test/simpleCount.test.js",
-    "test:add": "node ./test/add.test.js"
+    "test:add": "node ./test/add.test.js",
+    "test:sub": "node ./test/sub.test.js"
   },
   "repository": {
     "type": "git",
