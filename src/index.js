@@ -12,8 +12,8 @@ const result3 = `simpleToFixed(${value3},3)=${simpleToFixed(value3, 3)}`;
 pagelog(`value3=${value3}`);
 pagelog(result3);
 
-const value1 = -1100;
-const value2 = 0.1;
+const value1 = -10;
+const value2 = 10;
 
 pagelog(`value1=${value1}`);
 pagelog(`value2=${value2}`);

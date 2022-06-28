@@ -90,7 +90,7 @@ function addDecimalPlacesToString(str, len) {
     positive = 1;
     result = result.slice(1);
   }
-  while (result[0] === "0") {
+  while (result[0] === "0" && result.length !== 1) {
     result = result.slice(1);
   }
   if (len >= rightL) {

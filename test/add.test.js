@@ -20,9 +20,9 @@ function writeMsg(msg) {
   ws.write(msg);
 }
 
-let oneValue = -1100;
-let twoValue = 0.0001;
-let endValue = 1100;
+let oneValue = -100;
+let twoValue = -100;
+let endValue = 100;
 let step = 0.0001;
 let continueTest = true;
 let msg = "";
@@ -37,11 +37,13 @@ function testadd() {
   result = result.replace(/,/g, "");
   // 不能用 === ,  因为bignumber有时返回的是对象，而simplecount永远返回字符串
 
+  console.log(result);
+  console.log(countreulst);
   if (result == countreulst) {
     msg = `${msg}\r\n${oneValue},${twoValue}\r\n${nowstr}`;
     ++msgCount;
     if (msgCount > 1000) {
-      writeMsg(msg);
+      // writeMsg(msg);
       msg = "";
       msgCount = 0;
     }
@@ -62,7 +64,7 @@ function testadd() {
   // based on the values of the Unicode code points they contain.
   if (oneValue > endValue && twoValue > endValue) {
     continueTest = false;
-    ws.end(msg);
+    // ws.end(msg);
     msg = "";
     msgCount = 0;
   }
