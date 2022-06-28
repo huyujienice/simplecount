@@ -8,7 +8,8 @@
     "build": "webpack",
     "test": "node ./test/simpleCount.test.js",
     "test:add": "node ./test/add.test.js",
-    "test:sub": "node ./test/sub.test.js"
+    "test:sub": "node ./test/sub.test.js",
+    "test:mul": "node ./test/mul.test.js"
   },
   "repository": {
     "type": "git",
