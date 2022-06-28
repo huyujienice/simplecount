@@ -9,7 +9,8 @@
     "test": "node ./test/simpleCount.test.js",
     "test:add": "node ./test/add.test.js",
     "test:sub": "node ./test/sub.test.js",
-    "test:mul": "node ./test/mul.test.js"
+    "test:mul": "node ./test/mul.test.js",
+    "test:divi": "node ./test/divi.test.js"
   },
   "repository": {
     "type": "git",
