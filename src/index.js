@@ -1,5 +1,5 @@
-const { add, sub, mul, divi, simpleToFixed } = require("./core/index");
-const BigNumber = require("bignumber.js");
+import { add, sub, mul, divi, simpleToFixed } from "./core/index";
+import BigNumber from "bignumber.js";
 
 function pagelog(msg) {
   const div = document.createElement("div");
@@ -24,7 +24,6 @@ pagelog(`bignumberjsadd=${BigNumber(value1).plus(value2)}`);
 console.log(add(value1, value2) == BigNumber(value1).plus(value2));
 console.log(typeof add(value1, value2));
 console.log(typeof BigNumber(value1).plus(value2));
-
 
 pagelog(`value1-value2=${value1 - value2}`);
 pagelog(`sub=${sub(value1, value2)}`);
