@@ -4,7 +4,7 @@
  * @param {BigInt|String|number} str
  * @return {String} s
  */
-function fomateToString(str) {
+export function fomateToString(str) {
   let s;
   if (typeof nums === "bigint") {
     s = s.toString();
@@ -33,7 +33,7 @@ function fomateToString(str) {
  * @param {BigInt|String|Number} nums
  * @return {BigInt} result
  */
-function convertToBigInt(nums) {
+export function convertToBigInt(nums) {
   if (typeof nums === "bigint") {
     return nums;
   }
@@ -53,7 +53,7 @@ function convertToBigInt(nums) {
  * @param {*} nums
  * @return {*}
  */
-function getDecimalPlaces(nums) {
+export function getDecimalPlaces(nums) {
   let s = fomateToString(nums);
   if (!s.includes(".")) {
     return 0;
@@ -69,10 +69,7 @@ function getDecimalPlaces(nums) {
  * @param {*} len
  * @return {*}
  */
-function addDecimalPlacesToString(str, len) {
-  if (len === null || len === undefined) {
-    len = 2;
-  }
+export function addDecimalPlacesToString(str, len = 2) {
   // len 正数右挪，负数左挪
   if (!Number.isInteger(len)) {
     return new Error("len argument must be interger");
@@ -122,8 +119,3 @@ function addDecimalPlacesToString(str, len) {
 
   return result;
 }
-
-exports.getDecimalPlaces = getDecimalPlaces;
-exports.addDecimalPlacesToString = addDecimalPlacesToString;
-exports.convertToBigInt = convertToBigInt;
-exports.fomateToString = fomateToString;

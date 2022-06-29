@@ -1,9 +1,9 @@
-const {
+import {
   getDecimalPlaces,
   addDecimalPlacesToString,
   convertToBigInt,
   fomateToString,
-} = require("../utils/index");
+} from "../utils/index";
 //非大数加法
 function normaladd(one, two) {
   let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
@@ -137,10 +137,7 @@ function bigintdivi(one, two, holdNums) {
  * @param {Number} len
  * @return {String} str
  */
-function simpleToFixed(num, len) {
-  if (len === null || len === undefined) {
-    len = 2;
-  }
+export function simpleToFixed(num, len = 2) {
   if (!Number.isInteger(len)) {
     return new Error("len argument must be interger");
   }
@@ -203,36 +200,31 @@ function simpleToFixed(num, len) {
   }
   return str;
 }
-function add(one, two) {
+export function add(one, two) {
   if (typeof BigInt === "function") {
     return bigintadd(one, two);
   } else {
     return normaladd(one, two);
   }
 }
-function sub(one, two) {
+export function sub(one, two) {
   if (typeof BigInt === "function") {
     return bigintsub(one, two);
   } else {
     return normalsub(one, two);
   }
 }
-function mul(one, two) {
+export function mul(one, two) {
   if (typeof BigInt === "function") {
     return bigintmul(one, two);
   } else {
     return normalmul(one, two);
   }
 }
-function divi(one, two, holdNums) {
+export function divi(one, two, holdNums) {
   if (typeof BigInt === "function") {
     return bigintdivi(one, two, holdNums);
   } else {
     return normaldivi(one, two, holdNums);
   }
 }
-exports.add = add;
-exports.sub = sub;
-exports.mul = mul;
-exports.divi = divi;
-exports.simpleToFixed = simpleToFixed;
