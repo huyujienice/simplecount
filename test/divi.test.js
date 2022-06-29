@@ -1,4 +1,5 @@
 // Done in 1094.92s
+// -1200,-1200,1300,0.00001,Done in 63718.53s.
 const path = require("path");
 const fs = require("node:fs");
 const { add, sub, mul, divi, simpleToFixed } = require("../src/core/index");
@@ -24,16 +25,16 @@ function writeMsg(msg) {
 let oneValue = -1200;
 let twoValue = -1200;
 let endValue = 1300;
-let step = 0.0001;
+let step = 0.00001;
 let continueTest = true;
 let msg = "";
 let msgCount = 0;
 
 function testadd() {
   if (!continueTest) return;
-  let result = String(BigNumber(oneValue).dividedBy(twoValue).toFixed(2));
-  let countreulst = divi(oneValue, twoValue);
-  let nowstr = `simplecount:divi(${oneValue},${twoValue})=${countreulst}`;
+  let result = String(BigNumber(oneValue).dividedBy(twoValue).toFixed(3));
+  let countreulst = divi(oneValue, twoValue,3);
+  let nowstr = `simplecount:divi(${oneValue},${twoValue},3)=${countreulst}`;
   // 1,100 -> 1100
   result = result.replace(/,/g, "");
   // 不能用 === ,  因为bignumber有时返回的是对象，而simplecount永远返回字符串
