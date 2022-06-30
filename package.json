@@ -4,8 +4,8 @@
   "description": "a small tool for js count",
   "main": "src/index.js",
   "scripts": {
-    "serve": "webpack-dev-server",
-    "build": "webpack",
+    "serve": "webpack-dev-server --config ./build/webpack.dev.config.js",
+    "build": "webpack --config ./build/webpack.pro.config.js",
     "test": "node ./test/simpleCount.test.js",
     "test:add": "node ./test/add.test.js",
     "test:sub": "node ./test/sub.test.js",
