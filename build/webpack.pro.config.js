@@ -6,9 +6,11 @@ const config = {
   entry: "./src/buildindex.js",
   mode: "production",
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "../dist"),
     filename: "simplecount.js",
-    library: "simplecountjs",
+    library: "simplecount",
+    libraryTarget: "umd",
+    globalObject: 'this',
   },
 };
 

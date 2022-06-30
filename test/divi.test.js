@@ -2,7 +2,7 @@
 // -1200,-1200,1300,0.00001,Done in 63718.53s.
 const path = require("path");
 const fs = require("node:fs");
-const { add, sub, mul, divi, simpleToFixed } = require("../src/core/index");
+const { add, sub, mul, divi, simpleToFixed } = require("../dist/simplecount.js");
 const BigNumber = require("bignumber.js");
 
 //正常来说项目根目录即进程运行的目录

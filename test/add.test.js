@@ -1,11 +1,16 @@
 const path = require("path");
 const fs = require("node:fs");
-const { add, sub, mul, divi, simpleToFixed } = require("../src/core/index");
+const {
+  add,
+  sub,
+  mul,
+  divi,
+  simpleToFixed,
+} = require("../dist/simplecount.js");
 const BigNumber = require("bignumber.js");
 // import * as fs from "node:fs";
 // import { add, sub, mul, divi, simpleToFixed } from "../src/core/index";
 // import BigNumber from "bignumber.js";
-
 
 //正常来说项目根目录即进程运行的目录
 const projectRootPath = process.cwd();
@@ -27,7 +32,7 @@ function writeMsg(msg) {
 let oneValue = -100;
 let twoValue = -100;
 let endValue = 100;
-let step = 0.0001;
+let step = 0.1;
 let continueTest = true;
 let msg = "";
 let msgCount = 0;

@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("node:fs");
-const { add, sub, mul, divi, simpleToFixed } = require("../src/core/index");
+const { add, sub, mul, divi, simpleToFixed } = require("../dist/simplecount.js");
 const { appendDistFile } = require("../src/utils/file");
 const BigNumber = require("bignumber.js");
 
