@@ -1,18 +1,18 @@
 # simpleCount
 
-解决 javascript 计算中因 IEEE 754 标准引起的，浮点数精度以及计算不准确的问题
+解决 javascript 计算中因 IEEE 754 标准引起的，浮点数精度以及计算不准确的问题  
 且兼容超大数计算
 
 # 如何使用
-const a = 0.1
-const b = 0.2
-const c = 1.335
+const a = 0.1   
+const b = 0.2  
+const c = 1.335  
 
-const addResult = add(a,b)  //->'0.3'
-const subResult = sub(a,b)  //->'-0.1'
-const mulResult = mul(a,b)  //->'0.02'
-const diviResult = divi(a,b)  //->'0.50'
-const simpleToFixedResult = simpleToFiexed(c)  //->'1.34'
+const addResult = add(a,b)  //->'0.3'  
+const subResult = sub(a,b)  //->'-0.1'  
+const mulResult = mul(a,b)  //->'0.02'  
+const diviResult = divi(a,b)  //->'0.50'  
+const simpleToFixedResult = simpleToFiexed(c)  //->'1.34'  
 
 const d = Number.MAX_SAFE_INTEGER  //->9007199254740991
 const e = 11
