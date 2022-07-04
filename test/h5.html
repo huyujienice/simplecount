@@ -11,17 +11,35 @@
     <script>
       var a = 0.1;
       var b = 0.2;
+      var c = 1.335;
+      var d = Number.MAX_SAFE_INTEGER;
+      var e = 11;
+      var f = 3;
+
       var add = window.simplecount.add(a, b);
       var sub = window.simplecount.sub(a, b);
       var mul = window.simplecount.mul(a, b);
       var divi = window.simplecount.divi(a, b);
-      var simpleToFixed = window.simplecount.simpleToFixed(a);
-
+      var simpleToFixed = window.simplecount.simpleToFixed(c);
       console.log("add", add);
-      console.log("sub", add);
-      console.log("mul", add);
-      console.log("divi", add);
+      console.log("sub", sub);
+      console.log("mul", mul);
+      console.log("divi", divi);
       console.log("simpleToFixed", simpleToFixed);
+
+      var bigAdd = window.simplecount.add(d, e);
+      var bigSub = window.simplecount.sub(bigAdd, f);
+      var bigMul = window.simplecount.mul(bigAdd, f);
+      var bigDivi = window.simplecount.divi(bigAdd, f);
+      var bigSimple = window.simplecount.simpleToFixed(bigAdd);
+
+
+      console.log("MAX_SAFE_INTEGER", d);
+      console.log("bigAdd", bigAdd);
+      console.log("bigSub", bigSub);
+      console.log("bigMul", bigMul);
+      console.log("bigDivi", bigDivi);
+      console.log("bigSimple", bigSimple);
 
     </script>
   </body>
