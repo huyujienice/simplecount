@@ -1,4 +1,6 @@
 import { add, sub, mul, divi, simpleToFixed } from "./core/index";
+// import { add, sub, mul, divi, simpleToFixed } from "../dist/simplecount";
+
 import BigNumber from "bignumber.js";
 
 function pagelog(msg) {
