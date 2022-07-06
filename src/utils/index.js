@@ -28,6 +28,41 @@ export function fomateToString(str) {
 }
 
 /**
+ * 将输入转化为正常字符串
+ * 1.校验输入内容是否能够正常转换为Number
+ * 2.将连续空字符串转化为0
+ * 2.将科学计数法转化为正常显示
+ *
+ * @param {*} str
+ * @return {String} s
+ */
+export function covertToString(str) {
+  const oneJudge = Number(str);
+  if (Number.isNaN(oneJudge)) {
+    throw new Error(`${str} is not a normal number expression`);
+  }
+
+  let s;
+  if (typeof nums === "bigint") {
+    s = s.toString();
+  }
+  s = String(str);
+  const twoJudge = s.replace(/[\b\s]/g, "");
+  if (twoJudge.length == 0) {
+    return "0";
+  }
+
+  if (s.includes("e") || s.includes("E")) {
+    s = s.replace(/[eE]+/g, "e");
+    const scienceStr = s.split("e")[0];
+    const scienceLen = Number(s.split("e")[1]);
+    s = moveDecimal(scienceStr, scienceLen);
+  }
+
+  return s;
+}
+
+/**
  * 将输入转换为BigInt
  *
  * @param {BigInt|String|Number} nums
@@ -61,20 +96,32 @@ export function getDecimalPlaces(nums) {
     return s.split(".")[1].length;
   }
 }
-//小数点位置挪动
+
 /**
- *
- *
+ * 小数点位置挪动方法
+ * len 正数右挪，负数左挪
  * @param {*} str
  * @param {*} len
  * @return {*}
  */
 export function addDecimalPlacesToString(str, len = 2) {
-  // len 正数右挪，负数左挪
   if (!Number.isInteger(len)) {
-    return new Error("len argument must be interger");
+    return new Error("move length argument must be interger");
   }
   let s = fomateToString(str);
+  const result = moveDecimal(s, len);
+  return result;
+}
+
+/**
+ * 小数点挪动核心代码
+ * len正数为右挪扩大，负数为左挪缩小
+ * @param {String} str
+ * @param {Number} len
+ * @return {String} result
+ */
+function moveDecimal(str, len) {
+  let s = str;
   //数据源小数位数
   let rightL = getDecimalPlaces(str);
   //需要挪动的小数位数

@@ -1,5 +1,6 @@
 import { add, sub, mul, divi, simpleToFixed } from "./core/index";
 // import { add, sub, mul, divi, simpleToFixed } from "../dist/simplecount";
+import { covertToString } from "./utils/index";
 
 import BigNumber from "bignumber.js";
 
@@ -35,3 +36,6 @@ pagelog(`mul=${mul(value1, value2)}`);
 
 pagelog(`value1/value2=${value1 / value2}`);
 pagelog(`divi=${divi(value1, value2)}`);
+
+const value4 = '2022e-13';
+pagelog(`value4=${covertToString(value4)}`);
