@@ -1,5 +1,6 @@
 // Done in 1094.92s
 // -1200,-1200,1300,0.00001,Done in 63718.53s.
+// oneValue=-120,twoValue=-120,endValue=130,step=0.0001, Done in 71.81s.
 const path = require("path");
 const fs = require("node:fs");
 const { add, sub, mul, divi, simpleToFixed } = require("../dist/simplecount.js");
@@ -22,10 +23,10 @@ function writeMsg(msg) {
   ws.write(msg);
 }
 
-let oneValue = -1200;
-let twoValue = -1200;
-let endValue = 1300;
-let step = 0.00001;
+let oneValue = -120;
+let twoValue = -120;
+let endValue = 130;
+let step = 0.0001;
 let continueTest = true;
 let msg = "";
 let msgCount = 0;

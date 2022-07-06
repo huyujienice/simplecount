@@ -4,7 +4,7 @@
  * @param {BigInt|String|number} str
  * @return {String} s
  */
-export function fomateToString(str) {
+ export function fomateToString(str) {
   let s;
   if (typeof nums === "bigint") {
     s = s.toString();

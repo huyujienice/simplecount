@@ -1,3 +1,4 @@
+// oneValue=-100,twoValue=-100,endValue=100,step=0.0001,Done in 63.45s
 const path = require("path");
 const fs = require("node:fs");
 const {
@@ -32,7 +33,7 @@ function writeMsg(msg) {
 let oneValue = -100;
 let twoValue = -100;
 let endValue = 100;
-let step = 0.1;
+let step = 0.0001;
 let continueTest = true;
 let msg = "";
 let msgCount = 0;

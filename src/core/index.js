@@ -3,9 +3,13 @@ import {
   addDecimalPlacesToString,
   convertToBigInt,
   fomateToString,
+  covertToString,
 } from "../utils/index";
 //非大数加法
-function normaladd(one, two) {
+function normaladd(oneStr, twoStr) {
+  const one = covertToString(oneStr);
+  const two = covertToString(twoStr);
+
   let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   let result =
     addDecimalPlacesToString(one, len) + addDecimalPlacesToString(two, len);
@@ -15,7 +19,9 @@ function normaladd(one, two) {
   return result;
 }
 //非大数减法
-function normalsub(one, two) {
+function normalsub(oneStr, twoStr) {
+  const one = covertToString(oneStr);
+  const two = covertToString(twoStr);
   let len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   let result =
     addDecimalPlacesToString(one, len) - addDecimalPlacesToString(two, len);
@@ -25,7 +31,9 @@ function normalsub(one, two) {
   return result;
 }
 //非大数乘法
-function normalmul(one, two) {
+function normalmul(oneStr, twoStr) {
+  const one = covertToString(oneStr);
+  const two = covertToString(twoStr);
   let oneL = getDecimalPlaces(one);
   let twoL = getDecimalPlaces(two);
   let result =
@@ -36,7 +44,12 @@ function normalmul(one, two) {
   return result;
 }
 //非大数除法
-function normaldivi(one, two) {
+function normaldivi(oneStr, twoStr) {
+  const one = covertToString(oneStr);
+  const two = covertToString(twoStr);
+  if (two == "0") {
+    throw new Error("Dividend can not be zero");
+  }
   let oneL = getDecimalPlaces(one);
   let twoL = getDecimalPlaces(two);
   let result =
@@ -46,7 +59,10 @@ function normaldivi(one, two) {
   return result;
 }
 //加法
-function bigintadd(one, two) {
+function bigintadd(oneStr, twoStr) {
+  const one = covertToString(oneStr);
+  const two = covertToString(twoStr);
+
   const len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
@@ -57,7 +73,10 @@ function bigintadd(one, two) {
   return result;
 }
 //减法
-function bigintsub(one, two) {
+function bigintsub(oneStr, twoStr) {
+  const one = covertToString(oneStr);
+  const two = covertToString(twoStr);
+
   const len = Math.max(getDecimalPlaces(one), getDecimalPlaces(two));
   const oneBig = addDecimalPlacesToString(one, len);
   const twoBig = addDecimalPlacesToString(two, len);
@@ -68,7 +87,10 @@ function bigintsub(one, two) {
   return result;
 }
 //乘法
-function bigintmul(one, two) {
+function bigintmul(oneStr, twoStr) {
+  const one = covertToString(oneStr);
+  const two = covertToString(twoStr);
+
   const oneL = getDecimalPlaces(one);
   const twoL = getDecimalPlaces(two);
   const oneBig = convertToBigInt(one);
@@ -80,14 +102,20 @@ function bigintmul(one, two) {
   return result;
 }
 //除法
-function bigintdivi(one, two, holdNums) {
+function bigintdivi(oneStr, twoStr, holdNums) {
   //TODO
-  if (holdNums === undefined) {
+  if (holdNums === undefined || holdNums === null) {
     holdNums = 2;
   }
   if (holdNums < 0) {
     return new Error("can not keep negative decimal point");
   }
+  const one = covertToString(oneStr);
+  const two = covertToString(twoStr);
+  if (two == "0") {
+    throw new Error("Dividend can not be zero");
+  }
+
   const d1 = getDecimalPlaces(one);
   const d2 = getDecimalPlaces(two);
   let l1 = convertToBigInt(one).toString().length;
@@ -145,6 +173,7 @@ export function simpleToFixed(num, len = 2) {
     return new Error("len argument must larger than zero");
   }
   let str = fomateToString(num);
+  str = covertToString(str);
   //数据源小数位数
   let rightL = getDecimalPlaces(str);
   //需要挪动的小数位数
@@ -221,10 +250,10 @@ export function mul(one, two) {
     return normalmul(one, two);
   }
 }
-export function divi(one, two, holdNums) {
+export function divi(one, two, holdNums = 2) {
   if (typeof BigInt === "function") {
     return bigintdivi(one, two, holdNums);
   } else {
-    return normaldivi(one, two, holdNums);
+    return normaldivi(one, two);
   }
 }

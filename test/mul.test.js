@@ -1,4 +1,5 @@
 // Done in 222.40s.
+// oneValue=-1100,twoValue=-1200,endValue=100,step=0.0001,Done in 232.44s.
 const path = require("path");
 const fs = require("node:fs");
 const { add, sub, mul, divi, simpleToFixed } = require("../dist/simplecount.js");

@@ -1,6 +1,13 @@
+// oneValue=-100,endValue=110,step=0.0001,Done in 17.89s
 const path = require("path");
 const fs = require("node:fs");
-const { add, sub, mul, divi, simpleToFixed } = require("../dist/simplecount.js");
+const {
+  add,
+  sub,
+  mul,
+  divi,
+  simpleToFixed,
+} = require("../dist/simplecount.js");
 const { appendDistFile } = require("../src/utils/file");
 const BigNumber = require("bignumber.js");
 
@@ -20,11 +27,11 @@ const ws = fs.createWriteStream(distOutputFilePath, {
 });
 
 function writeMsg(msg) {
-  ws.write(msg);
+  // ws.write(msg);
 }
 
-let oneValue = -1100;
-let endValue = 1100;
+let oneValue = -110;
+let endValue = 110;
 let step = `0.0001`;
 let continueTest = true;
 let msg = "";
@@ -54,7 +61,7 @@ async function testsimpletofixed() {
   }
   oneValue = String(BigNumber(oneValue).plus(step));
   // 若大于2侧都是字符串，那么以字符串的形式比较大小，不是以正常的数据形式
-  // If both values are strings, they are compared as strings, 
+  // If both values are strings, they are compared as strings,
   // based on the values of the Unicode code points they contain.
   if (oneValue > endValue) {
     continueTest = false;
