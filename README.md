@@ -4,10 +4,11 @@
 且兼容超大数计算
 
 # 如何使用
+`import {add,sub,mul,divi,simpleToFixed} from 'simplecount';`  
+
 `const a = 0.1`   
 `const b = 0.2`    
 `const c = 1.335`  
-
 `const addResult = add(a,b)  //->'0.3'`  
 `const subResult = sub(a,b)  //->'-0.1'`    
 `const mulResult = mul(a,b)  //->'0.02'`  
@@ -17,7 +18,6 @@
 `const d = Number.MAX_SAFE_INTEGER  //->9007199254740991`    
 `const e = 11`    
 `const f = 3`    
-
 `const bigAddResult = add(d,e) //->'9007199254741002'`    
 `const bigSubResult = sub(bigAddResult,f) //->'9007199254740999'`    
 `const bigMulResult = mul(bigAddResult,f) //->'27021597764223006'`    
@@ -38,11 +38,11 @@
 
 # API 列表
 
-add(a,b) 返回结果字符串，加法,a+b  
-sub(a,b) 返回结果字符串，减法,a-b  
-mul(a,b) 返回结果字符串，乘法,a\*b  
-divi(a,b,c) 返回结果字符串，除法,a/b，保留 c 位小数，c 可不传，默认为 2  
-simpleToFixed(a,c) 返回结果字符串，四舍五入重构 toFixed,对 a 进行定点表示法格式化，c 表示小数点后数字的个数，c 可不传，默认为 2  
+add(a,b) 返回结果字符串，加法，a+b  
+sub(a,b) 返回结果字符串，减法，a-b  
+mul(a,b) 返回结果字符串，乘法，a\*b  
+divi(a,b,c) 返回结果字符串，除法，a/b，保留 c 位小数，c 可不传，默认为 2  
+simpleToFixed(a,c) 返回结果字符串，四舍五入重构toFixed，对 a 进行定点表示法格式化，c 表示小数点后数字的个数，c可不传，默认为 2  
 
 ## module 环境使用：
 
