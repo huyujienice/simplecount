@@ -1,6 +1,6 @@
 {
   "name": "simplecount",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a small tool for js count",
   "main": "dist/simplecount.js",
   "scripts": {
